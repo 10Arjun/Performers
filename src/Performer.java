@@ -1,17 +1,18 @@
-import java.text.DecimalFormat;
 import java.util.*;
 
 public class Performer {
-    DecimalFormat df = new DecimalFormat("##.#");
 
-    private final String NAME;
-    private final String INSTRUMENT;
+
+
+
+    private String NAME;
+    private String INSTRUMENT;
 
     private String PrevLocation;
     private double PrevRATING;
 
-    private final double[] ratings = new double[1000];
-    private final String[] locations = new String[1000];
+    private double[] ratings = new double[1000];
+    private String[] locations = new String[1000];
 
     private double average;
     private int localBest;
@@ -28,20 +29,15 @@ public class Performer {
     }
     public void getPerformerInfo(){
 
-        System.out.println(NAME+", "+INSTRUMENT+", ("+average+") || Last performance was at "+PrevLocation);
+        System.out.println(NAME + ", " + INSTRUMENT + ", (" + average + ") || Last performance was at " + PrevLocation);
     }
-    /*public double[] getRatings(){
-        return ratings;
-    }*/
     public String getLocationsBest() {
         return locations[localBest];
     }
-    public String getLocationsElement(int ele) {
-        return locations[ele];
+    public String getLocationsElement(int element) {
+        return locations[element];
     }
-    public String[] getLocations() {
-        return locations;
-    }
+
     public double getBestRatings(){
         for (int i = 0; i < ratings.length-1; i++)
         {
@@ -75,7 +71,7 @@ public class Performer {
     }
     public void perform(String locationOfPerformance) {
         Random rand = new Random();
-        PrevRATING = Double.parseDouble(df.format(rand.nextDouble()*10));
+        PrevRATING = rand.nextDouble() * 10;
         if (PrevRATING > 10){
             PrevRATING = 10.0;
         }
@@ -103,11 +99,15 @@ public class Performer {
         }
 
 
-        average = Double.parseDouble(df.format(Arrays.stream(ratings).sum()/n1));
+        average = Arrays.stream(ratings).sum() / n1;
 
 
     }
     public double getAverage() {
         return average;
     }
+    public String[] getLocations() {
+        return locations;
+    }
+
 }

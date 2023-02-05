@@ -10,9 +10,9 @@ public class main {
         boolean Menu = true;
 
         troupe[0] = new Performer("Johan", "FrenchHorn");
-        troupe[1] = new Performer("Zarar", "Fluba");
-        troupe[2] = new Performer("Hrehaan", "Guitar");
-        troupe[3] = new Performer("Karam", "Drums");
+        troupe[1] = new Performer("Augustine", "Fluba");
+        troupe[2] = new Performer("Ava", "Guitar");
+        troupe[3] = new Performer("JJ", "Drums");
         troupe[4] = new Performer("Bernardo", "Trumpet");
 
         for (int k = 0; k < 5; k++) {
@@ -23,7 +23,7 @@ public class main {
                 troupe[i].perform(Location[rand.nextInt(6)]);
             }
         }
-        int Input = 0;
+        int Input;
         while (Menu) {
             sc.nextLine();
             System.out.println("_________________");
@@ -35,23 +35,27 @@ public class main {
             System.out.println("4. Print the Best Performance");
             System.out.println("5. Sort the Performers");
             System.out.println("6. List the performances By Venue");
-            System.out.println("7. Find the Venue with the best performance");
-            System.out.println("8. QUIT");
+            System.out.println("7. QUIT");
             System.out.print("_________________ ");
+            Input = sc.nextInt();
             try {
-                Input = sc.nextInt();
                 System.out.println();
-                switch (Input) {
-                    case 1 -> PrintPerf(troupe);
-                    case 2 -> addElm(troupe);
-                    case 3 -> NewPerformance(troupe);
-                    case 4 -> BestPerf(troupe);
-                    case 5 -> Rank(troupe);
-                    case 6 -> VenueList(troupe);
-                    /////NOT WORKING
-                    // case 7 -> findBestVenue(Ensemble);
-                    case 8 -> Menu = false;
-                    default -> System.out.println("Your answer was not valid please try again");
+                if (Input == 1) {
+                    PrintPerf(troupe);
+                } else if (Input == 2) {
+                    addElment(troupe);
+                } else if (Input == 3) {
+                    NewPerformance(troupe);
+                } else if (Input == 4) {
+                    BestPerf(troupe);
+                } else if (Input == 5) {
+                    Rank(troupe);
+                } else if (Input == 6) {
+                    VenueList(troupe);
+                } else if (Input == 7) {
+                    break;
+                } else {
+                    System.out.println("Your answer was not valid please try again");
                 }
             } catch (Exception e) {
                 System.out.println("Try again!");
@@ -74,7 +78,7 @@ public class main {
         System.out.println();
     }
 
-    public static void addElm(Performer[] arr){
+    public static void addElment(Performer[] arr){
         Scanner sc = new Scanner(System.in);
         int Add =0;
         String NEWName;
@@ -96,20 +100,21 @@ public class main {
         PrintPerf(arr);
 
         Scanner sc = new Scanner(System.in);
+        int userInpLocal = 0;
         boolean running = false;
         String userInp = "";
-        int userInpLocal = 0;
         while (!running) {
-            System.out.print("Performance Location: ");
+            System.out.print("Please enter the Performance Location: ");
             userInp = sc.nextLine();
-            System.out.print("Performer number: ");
+            System.out.print("Please enter the Performer number: ");
             userInpLocal = sc.nextInt();
             if (arr[userInpLocal-1] != null) {
                 running = true;
             }
         }
         arr[userInpLocal-1].perform(userInp);
-        System.out.println(arr[userInpLocal-1].getNAME()+", "+arr[userInpLocal-1].getPrevLocationLOCATION()+" ("+arr[userInpLocal-1].getPrevRATING()+") ");
+        double roundedRating = Math.round(arr[userInpLocal-1].getPrevRATING() * 100.0) / 100.0;
+        System.out.println(arr[userInpLocal-1].getNAME()+", "+arr[userInpLocal-1].getPrevLocationLOCATION()+" (rating: "+roundedRating+")");
         PrintPerf(arr);
     }
 
@@ -128,11 +133,11 @@ public class main {
                     index = j;
                 }
             }
-            Performer temp = arr[index];
+            Performer temperoray = arr[index];
             arr[index] = arr[i];
-            arr[i] = temp;
+            arr[i] = temperoray;
         }
-        System.out.println("Best Performer: "+arr[0].getNAME()+", "+arr[0].getINSTRUMENT()+" ("+arr[0].getBestRatings()+", "+arr[0].getLocationsBest()+") ");
+        System.out.println("The Best Performer is: "+arr[0].getNAME()+", "+arr[0].getINSTRUMENT()+" ("+arr[0].getBestRatings()+", "+arr[0].getLocationsBest()+") ");
     }
 
     public static void Rank(Performer[] arr){
@@ -154,7 +159,7 @@ public class main {
             arr[index] = arr[i];
             arr[i] = temp;
         }
-        System.out.println("Best Performers: ");
+        System.out.println("The Best Performers are: ");
         for (int i = 0; i < arr.length; i++) {
             if (arr[i] == null){
                 continue;
@@ -166,27 +171,30 @@ public class main {
 
     public static void VenueList(Performer[] arr){
         Scanner sc = new Scanner(System.in);
-        int n =0;
-        System.out.print("Venue: ");
-        String userInp = sc.nextLine();
-        userInp = userInp.toUpperCase(Locale.ROOT);
-        System.out.println("Performers are: ");
-        for (int i = 0; i < arr.length; i++) {
-            if (arr[i] == null){
+        int numberOfPerformers = 0;
+        System.out.print("Enter the Veneu: ");
+        String venue = sc.nextLine();
+        venue = venue.toUpperCase(Locale.ROOT);
+        System.out.println("The Performers at this venue are: ");
+        for (Performer performer : arr) {
+            if (performer == null) {
                 continue;
             }
-            for (int j = 0; j < arr[i].getLocations().length; j++) {
-                if (arr[i].getLocationsElement(j) == null){
+
+            for (int j = 0; j < performer.getLocations().length; j++) {
+                if (performer.getLocationsElement(j) == null) {
                     continue;
                 }
-                if (arr[i].getLocationsElement(j).equals(userInp)){
-                    System.out.println("/ "+arr[i].getNAME()+" "+arr[i].getRatingsElements(j));
-                    n++;
+
+                if (performer.getLocationsElement(j).equals(venue)) {
+                    System.out.println(" / " + performer.getNAME() + " " + performer.getRatingsElements(j));
+                    numberOfPerformers++;
                 }
             }
         }
-        if (n == 0){
-            System.out.println("There is no one that has performed her!!!!!!!!!!");
+
+        if (numberOfPerformers == 0) {
+            System.out.println("No one has performed here, John stop trying to break it bro!");
         }
     }
 
