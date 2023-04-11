@@ -77,6 +77,7 @@ public class main {
         }
         System.out.println();
         System.out.println();
+        System.out.print("Press any key ");
     }
 
     public static void addElment(Performer[] arr){
@@ -95,6 +96,7 @@ public class main {
         System.out.print("Enter name of new Musician's Instrument: ");
         Instrument = sc.nextLine();
         arr[Add] = new Performer(NEWName, Instrument);
+        System.out.print("Press any key ");
     }
 
     public static void NewPerformance(Performer[] arr){
@@ -113,6 +115,7 @@ public class main {
                 running = true;
             }
         }
+        System.out.print("Press any key ");
         arr[userInpLocal-1].perform(userInp);
         double roundedRating = Math.round(arr[userInpLocal-1].getPrevRATING() * 100.0) / 100.0;
         System.out.println(arr[userInpLocal-1].getNAME()+", "+arr[userInpLocal-1].getPrevLocationLOCATION()+" (rating: "+roundedRating+")");
@@ -139,6 +142,8 @@ public class main {
             arr[i] = temperoray;
         }
         System.out.println("The Best Performer is: "+arr[0].getNAME()+", "+arr[0].getINSTRUMENT()+" ("+arr[0].getBestRatings()+", "+arr[0].getLocationsBest()+") ");
+        System.out.print("Press any key ");
+
     }
 
     public static void Rank(Performer[] arr){
@@ -168,6 +173,8 @@ public class main {
             System.out.print(i+1+"/ ");
             arr[i].getPerformerInfo();
         }
+        System.out.print("Press any key ");
+
     }
 
     public static void VenueList(Performer[] arr){
@@ -197,6 +204,7 @@ public class main {
         if (numberOfPerformers == 0) {
             System.out.println("No one has performed here, John stop trying to break it bro!");
         }
+        System.out.print("Press any key ");
     }
 
 }
