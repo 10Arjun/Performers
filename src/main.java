@@ -3,7 +3,7 @@ import java.util.*;
 public class main {
     static String[] Location = {"NEW ORLEANS", "MIAMI", "LOS ANGELES", "LONDON", "VIENNA", "IBIZA", "TOKYO"};
     public static void main(String[] args) {
-        System.out.println("press the enter key to start");
+        System.out.println("press any key to start");
         Scanner sc = new Scanner(System.in);
         Random rand = new Random();
         Performer[] troupe = new Performer[10];
@@ -23,7 +23,6 @@ public class main {
                 troupe[i].perform(Location[rand.nextInt(6)]);
             }
         }
-        int Input;
         while (Menu) {
             sc.nextLine();
             System.out.println("_________________");
@@ -37,28 +36,30 @@ public class main {
             System.out.println("6. List the performances By Venue");
             System.out.println("7. QUIT");
             System.out.print("_________________ ");
-            Input = sc.nextInt();
+            String Input = sc.nextLine();
             try {
                 System.out.println();
-                if (Input == 1) {
+                if (Input.equals("1")) {
                     PrintPerf(troupe);
-                } else if (Input == 2) {
+                } else if (Input.equals("2")) {
                     addElment(troupe);
-                } else if (Input == 3) {
+                } else if (Input.equals("3")) {
                     NewPerformance(troupe);
-                } else if (Input == 4) {
+                } else if (Input.equals("4")) {
                     BestPerf(troupe);
-                } else if (Input == 5) {
+                } else if (Input.equals("5")) {
                     Rank(troupe);
-                } else if (Input == 6) {
+                } else if (Input.equals("6")) {
                     VenueList(troupe);
-                } else if (Input == 7) {
+                } else if (Input.equals("7")) {
                     break;
                 } else {
                     System.out.println("Your answer was not valid please try again");
+                    continue;
                 }
             } catch (Exception e) {
                 System.out.println("Try again!");
+                continue;
             }
 
         }
